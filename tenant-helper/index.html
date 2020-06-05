@@ -1,0 +1,59 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.1.2/tailwind.min.css">
+    <link rel="stylesheet"
+          href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/css/fabric.min.css" />
+</head>
+
+<body class="p-2" style="background: #212121">
+    <fieldset class="border border-gray-800 mt-2 py-6 px-2 w-full lg:w-1/3 ">
+        <legend class="block text-gray-600">Tenant query</legend>
+        <input class="rounded pl-2  p-1 text-gray-300 bg-gray-800 outline-none placeholder-gray-600 w-64"
+               id="tenantQueryText"
+               type="text" placeholder="Tenant name...">
+        <button id="copyTenantBtn"
+                class="px-2 py-1 text-blue-500 hover:text-white hover:bg-blue-700 no-underline rounded focus:outline-none"><i
+               class="ms-Icon ms-Icon--Copy" aria-hidden="true"></i></button>
+
+        <div id="message" class="text-green-300 h-4">
+        </div>
+    </fieldset>
+
+    <fieldset class="border border-gray-800 mt-2 py-6 px-2 w-full lg:w-1/3 flex">
+        <legend class="block text-gray-600">Enable voting</legend>
+		<div>
+        <pre class="text-gray-300 flex-auto">
+    "FeatureFlags": {
+        "enableDecisionVoting": true,
+        "useSeparateForTasksAndDecisions": true
+    },
+	
+        </pre>
+		<div id="FeatureMessage" class="text-green-300 h-4">
+
+		</div>
+        <button id="copyFeatureFlagsBtn"
+                class="px-2 py-1 text-blue-500 hover:text-white hover:bg-blue-700 no-underline rounded focus:outline-none"><i
+               class="ms-Icon ms-Icon--Copy" aria-hidden="true"></i></button>
+    </fieldset>
+
+
+    <fieldset class="border border-gray-800 mt-2 py-6 px-2 w-full lg:w-1/3 flex">
+        <legend class="block text-gray-600">Agenda mask</legend>
+        <div>
+            <pre class="text-gray-300  flex-auto justify-start">
+            {{agendaItemNumber}}/{{yyyy}}
+        </pre>
+            <button id="copyFeatureFlagsBtn"
+                    class="px-2 py-1 text-blue-500 hover:text-white hover:bg-blue-700 no-underline rounded focus:outline-none"><i
+                   class="ms-Icon ms-Icon--Copy" aria-hidden="true"></i></button>
+        </div>
+    </fieldset>
+
+</body>
+
+<script src="./index.js">
+</script>
+
+</html>
