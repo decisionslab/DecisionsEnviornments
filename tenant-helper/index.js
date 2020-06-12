@@ -8,7 +8,7 @@ async function  copyCriteria() {
 
     const lower = text.trim().toLowerCase();
 
-    const criteria = `WHERE CONTAINS(LOWER(c.TenantName), '${lower}') or CONTAINS(LOWER(c.AzureADPrimaryRealm), '${lower}') or CONTAINS(LOWER(c.NotificationEmails), '${lower}')`
+    const criteria = `WHERE CONTAINS(LOWER(c.TenantName), '${lower}') or CONTAINS(LOWER(c.AzureADPrimaryRealm), '${lower}') or CONTAINS(LOWER(c.VerifiedDomains), '${lower}')`
     console.log(criteria);
 
     var data = new Blob([criteria], {type : "text/plain"});
