@@ -62,16 +62,12 @@ getElementById('copyFeatureFlagsBtn').addEventListener('click', copyFeatureFlags
 
 
 async function  copyCaseSubmissionPlan() {
-    const url = getElementById('caseSubmissionQueryText').value;
+    const text = getElementById('caseSubmissionQueryText').value;
+   
+    const url = new URL(text.replace('#', ''));
 
-    console.log(url);
-    const firstIndexOfGroupId = url.indexOf('?') + 9;
-    const lastIndexOfGroupId = url.indexOf('&');
-
-    const groupId = url.substring(firstIndexOfGroupId, lastIndexOfGroupId);
-    const planId = url.substring(lastIndexOfGroupId + 8);
-    console.log(groupId);
-    console.log(planId);
+    const groupId = url.searchParams.get("groupId");
+    const planId = url.searchParams.get("planId");
 
     const plan = 
         `
