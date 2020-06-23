@@ -61,3 +61,36 @@ const featureFlags =
 getElementById('copyFeatureFlagsBtn').addEventListener('click', copyFeatureFlags);
 
 
+async function  copyCaseSubmissionPlan() {
+    const text = getElementById('caseSubmissionQueryText').value;
+   
+    const url = new URL(text.replace('#', ''));
+
+    const groupId = url.searchParams.get("groupId");
+    const planId = url.searchParams.get("planId");
+
+    const plan = 
+        `
+            "CaseSubmissionPlanId": "${planId}",
+            "CaseSubmissionPlanOwnerId": "${groupId}",
+            "FeatureFlags": {
+                "readOnlyPermissionsAfterPublish": true
+                },
+        `
+    console.log(plan);
+
+    var data = new Blob([plan], {type : "text/plain"});
+
+    await navigator.clipboard.writeText(plan).catch(error => {
+        console.error(error);
+    });
+
+    getElementById('caseSubmissionMessage').innerHTML = `<i class="ms-Icon ms-Icon--CheckMark" aria-hidden="true"></i> Criteria copied...`;
+
+    setTimeout(() => {
+        getElementById('caseSubmissionMessage').innerText = "";
+
+    }, 1000);
+}
+
+getElementById('copyPlanBtn').addEventListener('click', copyCaseSubmissionPlan);
