@@ -56,14 +56,13 @@ const featureFlags =
 	
 }
 	
-	
-
 getElementById('copyFeatureFlagsBtn').addEventListener('click', copyFeatureFlags);
 
 
 async function  copyCaseSubmissionPlan() {
     const text = getElementById('caseSubmissionQueryText').value;
-   
+    
+    getElementById('enteredText').innerHTML = text;
     const url = new URL(text.replace('#', ''));
 
     const groupId = url.searchParams.get("groupId");
@@ -94,3 +93,10 @@ async function  copyCaseSubmissionPlan() {
 }
 
 getElementById('copyPlanBtn').addEventListener('click', copyCaseSubmissionPlan);
+
+getElementById('caseSubmissionQueryText').addEventListener("keyup", function(evt) {
+
+    if (evt.keyCode === 13) {
+        window.copyCaseSubmissionPlan()
+    }
+}, false);
