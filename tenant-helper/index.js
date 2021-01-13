@@ -103,7 +103,7 @@ getElementById('caseSubmissionQueryText').addEventListener("keyup", function(evt
 
 
 // Calender Access functions
-getElementById('copyCalenderBtn').addEventListener('click', copyCalenderAccess);
+getElementById('copyCalendarBtn').addEventListener('click', copyCalenderAccess);
 
 //Creating object for CalenderAccess
 function CalendarAccess(tenantId,grantedBy,grantedTo)
