@@ -103,7 +103,9 @@ getElementById('caseSubmissionQueryText').addEventListener("keyup", function(evt
 
 
 // Calender Access functions
-getElementById('copyCalendarBtn').addEventListener('click', copyCalendarAccess);
+
+getElementById('copyCalendarBtn').addEventListener('click', copyCalenderAccess);
+
 
 //Creating object for CalenderAccess
 function CalendarAccess(tenantId,grantedBy,grantedTo)
@@ -153,4 +155,5 @@ async function  copyCalendarAccess() {
         getElementById('calendarAccessMessage').innerText = "";
 
     }, 1000);
+
 }
