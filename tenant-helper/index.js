@@ -110,9 +110,9 @@ getElementById('copyCalendarBtn').addEventListener('click', copyCalendarAccess);
 //Creating object for CalenderAccess
 
 async   function  copyCalendarAccess() {
-    const tenantId = getElementById('tenantIdText').value;
-    const grantedBy = getElementById('grantedByText').value;
-    const grantedTo = getElementById('grantedToText').value;
+    const tenantId = safeTrim(getElementById('tenantIdText').value);
+    const grantedBy = safeTrim(getElementById('grantedByText').value);
+    const grantedTo = safeTrim(getElementById('grantedToText').value);
 
     const calendarAccessObj = 
     `{
@@ -135,4 +135,12 @@ async   function  copyCalendarAccess() {
 
     }, 1000);
 
+}
+
+
+function safeTrim(text) {
+    if(!text) {
+        return '';
+    }
+    return text.trim();
 }
