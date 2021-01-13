@@ -108,48 +108,27 @@ getElementById('copyCalendarBtn').addEventListener('click', copyCalenderAccess);
 
 
 //Creating object for CalenderAccess
-function CalendarAccess(tenantId,grantedBy,grantedTo)
-{
-    this.id = `${grantedBy}_${grantedTo}`;
-    this.GrantedByUserId = grantedBy;
-    this.GrantedToUserId = grantedTo;
-    this.GrantedDate = new Date().toUTCString();
-    this.PartitionKey = `AgendaCreationAccess_${tenantId}`
 
-}
-
-//for the javascript object to show output in html
-function jsonFormatter(val)
-{
-    return `
-      <div class="mt-2">
-      <p>{</p>
-      <p> "id": "${val.id}"</p>
-      <p> "GrantedByUserId": "${val.GrantedByUserId}"</p>
-      <p> "GrantedToUserId": "${val.GrantedToUserId}"</p>
-      <p> "GrantedDate": "${val.GrantedDate}"</p>
-       <p> "PartitionKey": "${val.PartitionKey}"</p>
-       <p>}</p>
-     </div>
-  `;
-}
-
-
-async function  copyCalendarAccess() {
+async   function  copyCalendarAccess() {
     const tenantId = getElementById('tenantIdText').value;
     const grantedBy = getElementById('grantedByText').value;
     const grantedTo = getElementById('grantedToText').value;
 
-    const calendarAccessObj = new CalendarAccess(tenantId,grantedBy,grantedTo);
-    const calendarAccess = JSON.stringify(calendarAccessObj);
-    console.log(calendarAccessObj);
-    
-    await navigator.clipboard.writeText(calendarAccess).catch(error => {
+    const calendarAccessObj = 
+    `{
+    "id": "${grantedBy}_${grantedTo}",
+    "GrantedByUserId": "${grantedBy}",
+    "GrantedToUserId": "${grantedTo}",
+    "GrantedDate":"${new Date().toISOString()}",
+    "PartitionKey": "AgendaCreationAccess_${tenantId}",
+}`;
+
+    await navigator.clipboard.writeText(calendarAccessObj).catch(error => {
         console.error(error);
     });
 
     getElementById('calendarAccessMessage').innerHTML = `<i class="ms-Icon ms-Icon--CheckMark" aria-hidden="true"></i> Criteria copied...`;
-    getElementById('calendarAccessOutput').innerHTML = jsonFormatter(calendarAccessObj) ;
+    getElementById('calendarAccessOutput').innerHTML = calendarAccessObj ;
 
     setTimeout(() => {
         getElementById('calendarAccessMessage').innerText = "";
