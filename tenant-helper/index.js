@@ -111,7 +111,7 @@ function CalendarAccess(tenantId,grantedBy,grantedTo)
     this.id = `${grantedBy}_${grantedTo}`;
     this.GrantedByUserId = grantedBy;
     this.GrantedToUserId = grantedTo;
-    this.GrantedDate = new Date().toUTCString();
+    this.GrantedDate = new Date().toISOString();
     this.PartitionKey = `AgendaCreationAccess_${tenantId}`
 
 }
