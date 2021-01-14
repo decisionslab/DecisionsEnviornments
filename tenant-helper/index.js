@@ -105,13 +105,54 @@ getElementById('caseSubmissionQueryText').addEventListener("keyup", function(evt
 // Calender Access functions
 getElementById('copyCalendarBtn').addEventListener('click', copyCalendarAccess);
 
-//Creating object for CalenderAccess
+//Creating object for bind Enter button
+(function bindCalendarAccessEvent()
+{
+   const inputNodes = [ 
+        getElementById('tenantIdText'),
+        getElementById('grantedByText'),
+        getElementById('grantedToText')
+    ];
+    
+    inputNodes.forEach( item =>{
+    
+        item.addEventListener('keypress', e =>{
+            if (e.key === 'Enter') {
+                copyCalendarAccess();
+              }
+
+        });
+    });
+
+})();
+
+
+
 
 async   function  copyCalendarAccess() {
     const tenantId = getElementById('tenantIdText').value.trim();
     const grantedBy = getElementById('grantedByText').value.trim();
     const grantedTo = getElementById('grantedToText').value.trim();
+    const error = getElementById('calenderAccessError');
+    error.innerHTML ="";
+    if(tenantId===grantedBy)
+    {   
+        error.innerHTML= `<i class="ms-Icon ms-Icon--Error" aria-hidden="true"></i> Granted By and Tenant Id must be Unique`;
+        return;
 
+    }else if ( (tenantId===grantedTo) )
+    {
+        error.innerHTML= `<i class="ms-Icon ms-Icon--Error" aria-hidden="true"></i> Granted To and TenantId must be Unique`;
+        return;
+
+
+    }else if(grantedBy===grantedTo)
+    {
+        error.innerHTML= `<i class="ms-Icon ms-Icon--Error" aria-hidden="true"></i> Granted To and Granted By must be Unique`;
+        return;
+
+    }
+    
     const calendarAccessObj = 
     `{
     "id": "${grantedBy}_${grantedTo}",

@@ -64,6 +64,7 @@
             <input class="mt-1 rounded pl-2  p-1 text-gray-300 bg-gray-800 outline-none placeholder-gray-600 w-full"
                id="tenantIdText"
                type="text" placeholder="Tenant Id">
+               
         </div>
 
         <div class="mt-2">
@@ -72,15 +73,19 @@
               </label>
             <input class="mt-1 rounded pl-2  p-1 text-gray-300 bg-gray-800 outline-none placeholder-gray-600 w-full"
             id="grantedByText"  type="text" placeholder="Granted By">
+           
         </div>
         
-        <div class="mt-2">
+        <div class="my-2">
             <label for="grantedToText" class="mt-1 block text-sm font-medium text-gray-600">
                 Granted To
               </label> 
             <input class="mt-1 rounded pl-2  p-1 text-gray-300 bg-gray-800 outline-none placeholder-gray-600 w-full"
             id="grantedToText" type="text" placeholder="Granted To">
+         
         </div>
+        
+        <small id="calenderAccessError" class="my-2 text-red-300 h-4"></small>
         
         <div class="mt-2">          
             <button id="copyCalendarBtn"
@@ -89,14 +94,12 @@
             </button>
         </div>
         
-        <div id="calendarAccessMessage" class="text-green-300 h-4"></div>
+        <div id="calendarAccessMessage" class="mt-2 mb-2 text-green-300 h-4"></div>
 
          
         <pre  class="rounded pl-2  p-1 text-gray-300 bg-gray-800 outline-none placeholder-gray-600 w-100"
         id="calendarAccessOutput"></pre>
     
-  
-        <p id="enteredText" class="text-gray-300 flex-auto"></p>
     </fieldset>
 
 </body>
