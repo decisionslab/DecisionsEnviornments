@@ -107,12 +107,122 @@ getElementById('caseSubmissionQueryText').addEventListener("keyup", function(evt
 getElementById('copyCalendarBtn').addEventListener('click', copyCalendarAccess);
 
 
-//Creating object for CalenderAccess
+//Calander Access event binding
+(function bindCalendarAccessEvent()
+{
+   const inputNodes = [ 
+        getElementById('tenantIdText'),
+        getElementById('grantedByText'),
+        getElementById('grantedToText')
+    ];
+    
+    inputNodes.forEach( item =>{
+    
+        item.addEventListener('keypress', e =>{
+            if (e.key === 'Enter') {
+                copyCalendarAccess();
+              }
+
+        });
+    });
+
+})();
+
+
+// Calendar Access Integrity Checking
+function isValidCalendar(tenantIdText,grantedByText,grantedToText)
+{
+    const error = getElementById('calenderAccessError');
+    const tenantIdError = getElementById('tenantIdTextError');
+    const grantedByError = getElementById('grantedByTextError');
+    const grantedToError = getElementById('grantedToTextError');
+    
+    const icon = `<i class="ms-Icon ms-Icon--Error" aria-hidden="true"></i>`;
+
+    error.innerHTML = '';
+    tenantIdError.innerHTML ='';
+    grantedByError.innerHTML = '';
+    grantedToError.innerHTML = '';
+    
+    tenantId = safeTrim(tenantIdText.value);
+    grantedBy = safeTrim(grantedByText.value);
+    grantedTo = safeTrim(grantedToText.value);
+   
+    tenantIdText.classList.remove("border","border-solid","border-red-400");
+    grantedByText.classList.remove("border","border-solid","border-red-400");
+    grantedToText.classList.remove("border","border-solid","border-red-400");
+
+
+    if(tenantId ==='')
+    {
+        tenantIdError.innerHTML= `${icon}  Tenant Id is required`;
+        tenantIdText.classList.add("border","border-solid","border-red-400");
+        tenantIdText.focus();
+        return false;
+    }else if (grantedBy ==='')
+    {
+        grantedByError.innerHTML= `${icon} Granted By is required`;
+        grantedByText.classList.add("border","border-solid","border-red-400");
+        grantedByText.focus();
+        return false;
+    }
+    else if(grantedTo ==='')
+    {
+        grantedToError.innerHTML= `${icon} Granted To is required`;
+        grantedToText.classList.add("border","border-solid","border-red-400");
+        grantedToText.focus();
+        return false;
+    }
+    else if(tenantId===grantedBy)
+    {   
+        error.innerHTML= `${icon} Granted By and Tenant Id must be Unique`;
+       
+        tenantIdText.classList.add("border","border-solid","border-red-400");
+        grantedByText.classList.add("border","border-solid","border-red-400");
+        grantedByText.focus();
+        return false;
+    
+    }else if ( tenantId===grantedTo)
+    {
+        error.innerHTML= `${icon} Granted To and Tenant Id must be Unique`;
+        tenantIdText.classList.add("border","border-solid","border-red-400");
+        grantedToText.classList.add("border","border-solid","border-red-400");
+        grantedToText.focus();
+
+        return false;
+    
+    }else if(grantedBy===grantedTo)
+    {
+        error.innerHTML= `${icon} Granted To and Granted By must be Unique`;
+        grantedToText.classList.add("border","border-solid","border-red-400");
+        grantedByText.classList.add("border","border-solid","border-red-400");
+        grantedToText.focus();
+
+        return false;
+    }
+
+
+    return true;
+
+}
+
+
 
 async   function  copyCalendarAccess() {
-    const tenantId = safeTrim(getElementById('tenantIdText').value);
-    const grantedBy = safeTrim(getElementById('grantedByText').value);
-    const grantedTo = safeTrim(getElementById('grantedToText').value);
+    const tenantIdText = getElementById('tenantIdText');
+    const grantedByText = getElementById('grantedByText');
+    const grantedToText = getElementById('grantedToText');
+    const calendarAccessOutput = getElementById('calendarAccessOutput');
+    calendarAccessOutput.innerHTML ="";
+
+    //if input is not valid return
+    if(!isValidCalendar(tenantIdText,grantedByText,grantedToText)) return;
+
+    // else construct json
+    const tenantId = safeTrim(tenantIdText.value);
+    const grantedBy = safeTrim(grantedByText.value);
+    const grantedTo = safeTrim(grantedToText.value);
+
 
     const calendarAccessObj = 
     `{
@@ -120,7 +230,7 @@ async   function  copyCalendarAccess() {
     "GrantedByUserId": "${grantedBy}",
     "GrantedToUserId": "${grantedTo}",
     "GrantedDate":"${new Date().toISOString()}",
-    "PartitionKey": "AgendaCreationAccess_${tenantId}",
+    "PartitionKey": "AgendaCreationAccess_${(tenantId)}",
 }`;
 
     await navigator.clipboard.writeText(calendarAccessObj).catch(error => {
@@ -128,7 +238,7 @@ async   function  copyCalendarAccess() {
     });
 
     getElementById('calendarAccessMessage').innerHTML = `<i class="ms-Icon ms-Icon--CheckMark" aria-hidden="true"></i> Criteria copied...`;
-    getElementById('calendarAccessOutput').innerHTML = calendarAccessObj ;
+    calendarAccessOutput.innerHTML = calendarAccessObj ;
 
     setTimeout(() => {
         getElementById('calendarAccessMessage').innerText = "";
