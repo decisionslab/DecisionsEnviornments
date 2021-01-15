@@ -212,6 +212,8 @@ async   function  copyCalendarAccess() {
     const tenantIdText = getElementById('tenantIdText');
     const grantedByText = getElementById('grantedByText');
     const grantedToText = getElementById('grantedToText');
+    const calendarAccessOutput = getElementById('calendarAccessOutput');
+    calendarAccessOutput.innerHTML ="";
 
     //if input is not valid return
     if(!isValidCalendar(tenantIdText,grantedByText,grantedToText)) return;
@@ -236,7 +238,7 @@ async   function  copyCalendarAccess() {
     });
 
     getElementById('calendarAccessMessage').innerHTML = `<i class="ms-Icon ms-Icon--CheckMark" aria-hidden="true"></i> Criteria copied...`;
-    getElementById('calendarAccessOutput').innerHTML = calendarAccessObj ;
+    calendarAccessOutput.innerHTML = calendarAccessObj ;
 
     setTimeout(() => {
         getElementById('calendarAccessMessage').innerText = "";
